@@ -3,16 +3,7 @@ const CLIENTID = process.env.CLIENT_ID.toString();
 const CLIENTSECRET = process.env.CLIENTSECRET.toString();
 const CALLBACKURL = process.env.CALLBACKURL.toString();
 
-const headerCreateOption = (body) => {
-    return {
-        method: 'POST', headers: {
-            contentType: 'application/json',
-            'Api-Token': apiKey.toString()
-        },
-        body:  JSON.stringify(body)
-    }
 
-}
 router.get('/auth/infusionsoft', async (req, res ) => {
     res.redirect(`https://accounts.infusionsoft.com/app/oauth/authorize?client_id=${CLIENTID}&redirect_uri=${CALLBACKURL}&response_type=code&scope=full`)
       })
@@ -36,7 +27,7 @@ router.get('/auth/infusionsoft/callback', async (req, res ) => {
         .then(token => token.json())
         .then(token => {
             const access_token = token.access_token;
-            const refresh_token = token.access_token;
+            const refresh_token = token.refresh_token;
             // put the value in db or cache
            console.log('access_token: '+access_token + ' refresh_token: '+refresh_token);
         })
@@ -64,7 +55,7 @@ router.get('/auth/infusionsoft/refresh', async (req, res)  => {
         .then(token => token.json())
         .then(token => {
             const access_token = token.access_token;
-            const refresh_token = token.access_token;
+            const refresh_token = token.refresh_token;
             // put the value to the db or cache
             console.log('access_token: '+access_token + ' refresh_token: '+refresh_token);
             res.status(200).send('refresh');
