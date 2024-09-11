@@ -1,4 +1,4 @@
-## Keap oauth 2.0 with expressjs
+## Keap oauth 2.0 with expressjs + prisma & mongodb
 
 - rename env.txt to .env
 - create a button or an url that point to /keap/auth/infusionsoft
